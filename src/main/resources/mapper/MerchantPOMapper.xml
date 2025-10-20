@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+        <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tencent.wxcloudrun.dao.MerchantMapper">
+    <resultMap type="com.tencent.wxcloudrun.model.MerchantPO" id="MerchantPOMap">
+        <result property="merchantId" column="merchant_id" jdbcType="VARCHAR"/>
+        <result property="merchantName" column="merchant_name" jdbcType="VARCHAR"/>
+        <result property="merchantType" column="merchant_type" jdbcType="INT"/>
+        <result property="merchantAddress" column="merchant_address" jdbcType="VARCHAR"/>
+        <result property="merchantDes" column="merchant_des" jdbcType="VARCHAR"/>
+        <result property="merchantPhone" column="merchant_phone" jdbcType="VARCHAR"/>
+        <result property="merchantManager" column="merchant_manager" jdbcType="VARCHAR"/>
+        <result property="merchantRole" column="merchant_role" jdbcType="INT"/>
+        <result property="merchantPassword" column="merchant_password" jdbcType="VARCHAR"/>
+        <result property="merchantAccount" column="merchant_account" jdbcType="VARCHAR"/>
+        <result property="loginToken" column="login_token" jdbcType="VARCHAR"/>
+        <result property="loginInvalidTime" column="login_Invalid_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!-- 通过ID查询单条数据 -->
+    <select id="queryById" resultMap="MerchantPOMap">
+        select
+        merchant_id,merchant_name,merchant_type,merchant_address,merchant_des,merchant_phone,merchant_manager,merchant_role,merchant_password,merchant_account,login_token,login_Invalid_time
+        from merchant
+        where merchant_account = #{merchant_account} and merchant_password = #{merchant_password}
+    </select>
+
+    <!--分页查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="MerchantPOMap">
+        select
+        merchant_id,merchant_name,merchant_type,merchant_address,merchant_des,merchant_phone,merchant_manager,merchant_role,merchant_password,merchant_account,login_token,login_Invalid_time
+        from merchant
+        <where>
+            <if test="merchantId != null and merchantId != ''">
+                and merchant_id = #{merchantId}
+            </if>
+            <if test="merchantName != null and merchantName != ''">
+                and merchant_name = #{merchantName}
+            </if>
+            <if test="merchantType != null and merchantType != ''">
+                and merchant_type = #{merchantType}
+            </if>
+            <if test="merchantAddress != null and merchantAddress != ''">
+                and merchant_address = #{merchantAddress}
+            </if>
+            <if test="merchantDes != null and merchantDes != ''">
+                and merchant_des = #{merchantDes}
+            </if>
+            <if test="merchantPhone != null and merchantPhone != ''">
+                and merchant_phone = #{merchantPhone}
+            </if>
+            <if test="merchantManager != null and merchantManager != ''">
+                and merchant_manager = #{merchantManager}
+            </if>
+            <if test="merchantRole != null and merchantRole != ''">
+                and merchant_role = #{merchantRole}
+            </if>
+            <if test="merchantPassword != null and merchantPassword != ''">
+                and merchant_password = #{merchantPassword}
+            </if>
+            <if test="merchantAccount != null and merchantAccount != ''">
+                and merchant_account = #{merchantAccount}
+            </if>
+            <if test="loginToken != null and loginToken != ''">
+                and login_token = #{loginToken}
+            </if>
+            <if test="loginInvalidTime != null and loginInvalidTime != ''">
+                and login_Invalid_time = #{loginInvalidTime}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from merchant
+        <where>
+            <if test="merchantId != null and merchantId != ''">
+                and merchant_id = #{merchantId}
+            </if>
+            <if test="merchantName != null and merchantName != ''">
+                and merchant_name = #{merchantName}
+            </if>
+            <if test="merchantType != null and merchantType != ''">
+                and merchant_type = #{merchantType}
+            </if>
+            <if test="merchantAddress != null and merchantAddress != ''">
+                and merchant_address = #{merchantAddress}
+            </if>
+            <if test="merchantDes != null and merchantDes != ''">
+                and merchant_des = #{merchantDes}
+            </if>
+            <if test="merchantPhone != null and merchantPhone != ''">
+                and merchant_phone = #{merchantPhone}
+            </if>
+            <if test="merchantManager != null and merchantManager != ''">
+                and merchant_manager = #{merchantManager}
+            </if>
+            <if test="merchantRole != null and merchantRole != ''">
+                and merchant_role = #{merchantRole}
+            </if>
+            <if test="merchantPassword != null and merchantPassword != ''">
+                and merchant_password = #{merchantPassword}
+            </if>
+            <if test="merchantAccount != null and merchantAccount != ''">
+                and merchant_account = #{merchantAccount}
+            </if>
+            <if test="loginToken != null and loginToken != ''">
+                and login_token = #{loginToken}
+            </if>
+            <if test="loginInvalidTime != null and loginInvalidTime != ''">
+                and login_Invalid_time = #{loginInvalidTime}
+            </if>
+        </where>
+    </select>
+
+    <!--新增数据-->
+    <insert id="insert" keyProperty="merchant_id" useGeneratedKeys="true">
+        insert into merchant(merchant_id,merchant_name,merchant_type,merchant_address,merchant_des,merchant_phone,merchant_manager,merchant_role,merchant_password,merchant_account,login_token,login_Invalid_time)
+        values (#{merchantId},#{merchantName},#{merchantType},#{merchantAddress},#{merchantDes},#{merchantPhone},#{merchantManager},#{merchantRole},#{merchantPassword},#{merchantAccount},#{loginToken},#{loginInvalidTime})
+    </insert>
+
+    <!-- 批量新增数据 -->
+    <insert id="insertBatch" keyProperty="merchant_id" useGeneratedKeys="true">
+        insert into merchant(merchant_id,merchant_name,merchant_type,merchant_address,merchant_des,merchant_phone,merchant_manager,merchant_role,merchant_password,merchant_account,login_token,login_Invalid_time)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.merchantId},#{entity.merchantName},#{entity.merchantType},#{entity.merchantAddress},#{entity.merchantDes},#{entity.merchantPhone},#{entity.merchantManager},#{entity.merchantRole},#{entity.merchantPassword},#{entity.merchantAccount},#{entity.loginToken},#{entity.loginInvalidTime})
+        </foreach>
+    </insert>
+
+    <!-- 批量新增或按主键更新数据 -->
+    <insert id="insertOrUpdateBatch" keyProperty="merchant_id" useGeneratedKeys="true">
+        insert into merchant(merchant_id,merchant_name,merchant_type,merchant_address,merchant_des,merchant_phone,merchant_manager,merchant_role,merchant_password,merchant_account,login_token,login_Invalid_time)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.merchantId},#{entity.merchantName},#{entity.merchantType},#{entity.merchantAddress},#{entity.merchantDes},#{entity.merchantPhone},#{entity.merchantManager},#{entity.merchantRole},#{entity.merchantPassword},#{entity.merchantAccount},#{entity.loginToken},#{entity.loginInvalidTime})
+        </foreach>
+        on duplicate key update
+        merchant_id=values(merchant_id),
+        merchant_name=values(merchant_name),
+        merchant_type=values(merchant_type),
+        merchant_address=values(merchant_address),
+        merchant_des=values(merchant_des),
+        merchant_phone=values(merchant_phone),
+        merchant_manager=values(merchant_manager),
+        merchant_role=values(merchant_role),
+        merchant_password=values(merchant_password),
+        merchant_account=values(merchant_account),
+        login_token=values(login_token),
+        login_Invalid_time=values(login_Invalid_time)
+    </insert>
+
+    <!-- 更新数据 -->
+    <update id="update">
+        update merchant
+        <set>
+            <if test="merchantId != null and merchantId != ''">
+                merchant_id = #{merchantId},
+            </if>
+            <if test="merchantName != null and merchantName != ''">
+                merchant_name = #{merchantName},
+            </if>
+            <if test="merchantType != null and merchantType != ''">
+                merchant_type = #{merchantType},
+            </if>
+            <if test="merchantAddress != null and merchantAddress != ''">
+                merchant_address = #{merchantAddress},
+            </if>
+            <if test="merchantDes != null and merchantDes != ''">
+                merchant_des = #{merchantDes},
+            </if>
+            <if test="merchantPhone != null and merchantPhone != ''">
+                merchant_phone = #{merchantPhone},
+            </if>
+            <if test="merchantManager != null and merchantManager != ''">
+                merchant_manager = #{merchantManager},
+            </if>
+            <if test="merchantRole != null and merchantRole != ''">
+                merchant_role = #{merchantRole},
+            </if>
+            <if test="merchantPassword != null and merchantPassword != ''">
+                merchant_password = #{merchantPassword},
+            </if>
+            <if test="merchantAccount != null and merchantAccount != ''">
+                merchant_account = #{merchantAccount},
+            </if>
+            <if test="loginToken != null and loginToken != ''">
+                login_token = #{loginToken},
+            </if>
+            <if test="loginInvalidTime != null and loginInvalidTime != ''">
+                login_Invalid_time = #{loginInvalidTime},
+            </if>
+        </set>
+        where merchant_id = #{merchantId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from merchant where merchant_id = #{merchantId}
+    </delete>
+</mapper>
