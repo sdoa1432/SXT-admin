@@ -18,7 +18,7 @@
     <!-- 通过ID查询单条数据 -->
     <select id="queryByAccountAndPassword" resultMap="MerchantPOMap">
         select
-        id,merchant_name,merchant_type,merchant_address,merchant_des,merchant_phone,merchant_manager,merchant_role,merchant_password,merchant_account,login_token,login_Invalid_time
+        id,merchant_name,merchant_type,merchant_address,merchant_des,merchant_phone,merchant_manager,merchant_role,merchant_password,merchant_account,login_token
         from merchant
         where merchant_account = #{merchant_account} and merchant_password = #{merchant_password}
     </select>
