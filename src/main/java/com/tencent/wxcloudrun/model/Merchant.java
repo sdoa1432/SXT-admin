@@ -3,10 +3,9 @@ package com.tencent.wxcloudrun.model;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 
 @Data
-public class MerchantPO implements Serializable,Cloneable{
+public class Merchant implements Serializable,Cloneable{
     /** 主键 */
     private String id ;
     /** 商户名称,; */

@@ -4,6 +4,8 @@ import lombok.Data;
 
 @Data
 public class VoucherRequest {
+
+  private String id ;
   /** 消费券名称,; */
   private String voucherName ;
   /** 消费金额,; */

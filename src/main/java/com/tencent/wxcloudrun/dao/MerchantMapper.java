@@ -1,6 +1,6 @@
 package com.tencent.wxcloudrun.dao;
 
-import com.tencent.wxcloudrun.model.MerchantPO;
+import com.tencent.wxcloudrun.model.Merchant;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.data.domain.Pageable;
@@ -15,7 +15,7 @@ public interface MerchantMapper {
      * @param merchant_password 商户密码
      * @return 实例对象
      */
-    MerchantPO queryByAccountAndPassword(String merchant_account, String merchant_password);
+    Merchant queryByAccountAndPassword(String merchant_account, String merchant_password);
     /**
      * 分页查询指定行数据
      *
@@ -23,42 +23,42 @@ public interface MerchantMapper {
      * @param pageable 分页对象
      * @return 对象列表
      */
-    List<MerchantPO> queryAllByLimit(MerchantPO merchant, @Param("pageable") Pageable pageable);
+    List<Merchant> queryAllByLimit(Merchant merchant, @Param("pageable") Pageable pageable);
     /**
      * 统计总行数
      *
      * @param merchant 查询条件
      * @return 总行数
      */
-    long count(MerchantPO merchant);
+    long count(Merchant merchant);
     /**
      * 新增数据
      *
      * @param merchant 实例对象
      * @return 影响行数
      */
-    int insert(MerchantPO merchant);
+    int insert(Merchant merchant);
     /**
      * 批量新增数据
      *
      * @param entities List<MerchantPO> 实例对象列表
      * @return 影响行数
      */
-    int insertBatch(@Param("entities") List<MerchantPO> entities);
+    int insertBatch(@Param("entities") List<Merchant> entities);
     /**
      * 批量新增或按主键更新数据
      *
      * @param entities List<MerchantPO> 实例对象列表
      * @return 影响行数
      */
-    int insertOrUpdateBatch(@Param("entities") List<MerchantPO> entities);
+    int insertOrUpdateBatch(@Param("entities") List<Merchant> entities);
     /**
      * 更新数据
      *
      * @param merchant 实例对象
      * @return 影响行数
      */
-    int update(MerchantPO merchant);
+    int update(Merchant merchant);
     /**
      * 通过主键删除数据
      *

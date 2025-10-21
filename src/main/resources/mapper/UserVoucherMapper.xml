@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+        <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tencent.wxcloudrun.dao.UserVoucherMapper">
+    <resultMap type="com.tencent.wxcloudrun.model.UserVoucher" id="UserVoucherMap">
+        <result property="id" column="id" jdbcType="VARCHAR"/>
+        <result property="voucherId" column="voucher_id" jdbcType="VARCHAR"/>
+        <result property="userId" column="user_id" jdbcType="VARCHAR"/>
+        <result property="isVerify" column="is_verify" jdbcType="BOOLEAN"/>
+        <result property="verifyTime" column="verify_time" jdbcType="TIMESTAMP"/>
+        <result property="obtainedTime" column="obtained_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!-- 通过ID查询单条数据 -->
+    <select id="queryById" resultMap="UserVoucherMap">
+        select
+        id,voucher_id,user_id,is_verify,verify_time,obtained_time
+        from user_voucher
+        where id = #{id}
+    </select>
+
+    <!--分页查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="UserVoucherMap">
+        select
+        id,voucher_id,user_id,is_verify,verify_time,obtained_time
+        from user_voucher
+        <where>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="voucherId != null and voucherId != ''">
+                and voucher_id = #{voucherId}
+            </if>
+            <if test="userId != null and userId != ''">
+                and user_id = #{userId}
+            </if>
+            <if test="isVerify != null and isVerify != ''">
+                and is_verify = #{isVerify}
+            </if>
+            <if test="verifyTime != null and verifyTime != ''">
+                and verify_time = #{verifyTime}
+            </if>
+            <if test="obtainedTime != null and obtainedTime != ''">
+                and obtained_time = #{obtainedTime}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+    <!--查询指定数据-->
+    <select id="queryAll" resultMap="UserVoucherMap">
+        select
+        id,voucher_id,user_id,is_verify,verify_time,obtained_time
+        from user_voucher
+        <where>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="voucherId != null and voucherId != ''">
+                and voucher_id = #{voucherId}
+            </if>
+            <if test="userId != null and userId != ''">
+                and user_id = #{userId}
+            </if>
+            <if test="isVerify != null and isVerify != ''">
+                and is_verify = #{isVerify}
+            </if>
+            <if test="verifyTime != null and verifyTime != ''">
+                and verify_time = #{verifyTime}
+            </if>
+            <if test="obtainedTime != null and obtainedTime != ''">
+                and obtained_time = #{obtainedTime}
+            </if>
+        </where>
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from user_voucher
+        <where>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="voucherId != null and voucherId != ''">
+                and voucher_id = #{voucherId}
+            </if>
+            <if test="userId != null and userId != ''">
+                and user_id = #{userId}
+            </if>
+            <if test="isVerify != null and isVerify != ''">
+                and is_verify = #{isVerify}
+            </if>
+            <if test="verifyTime != null and verifyTime != ''">
+                and verify_time = #{verifyTime}
+            </if>
+            <if test="obtainedTime != null and obtainedTime != ''">
+                and obtained_time = #{obtainedTime}
+            </if>
+        </where>
+    </select>
+
+    <!--新增数据-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into user_voucher(id,voucher_id,user_id,is_verify,verify_time,obtained_time)
+        values (#{id},#{voucherId},#{userId},#{isVerify},#{verifyTime},#{obtainedTime})
+    </insert>
+
+    <!-- 批量新增数据 -->
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into user_voucher(id,voucher_id,user_id,is_verify,verify_time,obtained_time)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.id},#{entity.voucherId},#{entity.userId},#{entity.isVerify},#{entity.verifyTime},#{entity.obtainedTime})
+        </foreach>
+    </insert>
+
+    <!-- 批量新增或按主键更新数据 -->
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into user_voucher(id,voucher_id,user_id,is_verify,verify_time,obtained_time)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.id},#{entity.voucherId},#{entity.userId},#{entity.isVerify},#{entity.verifyTime},#{entity.obtainedTime})
+        </foreach>
+        on duplicate key update
+        id=values(id),
+        voucher_id=values(voucher_id),
+        user_id=values(user_id),
+        is_verify=values(is_verify),
+        verify_time=values(verify_time),
+        obtained_time=values(obtained_time)
+    </insert>
+
+    <!-- 更新数据 -->
+    <update id="update">
+        update user_voucher
+        <set>
+            <if test="id != null and id != ''">
+                id = #{id},
+            </if>
+            <if test="voucherId != null and voucherId != ''">
+                voucher_id = #{voucherId},
+            </if>
+            <if test="userId != null and userId != ''">
+                user_id = #{userId},
+            </if>
+            <if test="isVerify != null and isVerify != ''">
+                is_verify = #{isVerify},
+            </if>
+            <if test="verifyTime != null and verifyTime != ''">
+                verify_time = #{verifyTime},
+            </if>
+            <if test="obtainedTime != null and obtainedTime != ''">
+                obtained_time = #{obtainedTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from user_voucher where id = #{id}
+    </delete>
+</mapper>

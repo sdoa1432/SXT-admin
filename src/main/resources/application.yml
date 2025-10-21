@@ -10,6 +10,8 @@ spring:
     view:
       suffix: .html
       prefix: /
-
 mybatis:
   mapper-locations: classpath*:mapper/*Mapper.xml
+jwt:
+  auth:
+    key: ndlkashdoiashnaksldjasilh

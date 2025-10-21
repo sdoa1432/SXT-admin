@@ -3,12 +3,16 @@ package com.tencent.wxcloudrun.utils;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import org.springframework.beans.factory.annotation.Value;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
 public class JwtUtil {
-    private static String key = "ndlkashdoiashnaksldjasilh"; // 密钥，请更改为一个复杂的字符串
+
+    @Value("${value.from.file}")
+    private static String key; // 密钥，请更改为一个复杂的字符串
     private static Integer invild_minutes = 30; // 令牌过期分钟
 
     // 生成Token

@@ -1,5 +1,6 @@
 package com.tencent.wxcloudrun.controller;
 
+import com.tencent.wxcloudrun.dto.ClaimVoucherRequest;
 import com.tencent.wxcloudrun.dto.CurdRequest;
 import com.tencent.wxcloudrun.dto.VoucherRequest;
 import com.tencent.wxcloudrun.result.LoginResult;
@@ -33,48 +34,36 @@ public class MainController {
     return mainService.login(loginRequest);
   }
 
-  @PostMapping(value = "/voucher/add")
+  @PostMapping(value = "/voucher/addAndUpdate")
   ApiResponse addVoucher(@RequestBody VoucherRequest voucherRequest) {
-    logger.info("/voucher/add");
-
-
-
-
-    return ApiResponse.ok("成功");
-  }
-
-  @PostMapping(value = "/voucher/edit")
-  ApiResponse updateVoucher(@RequestBody VoucherRequest voucherRequest) {
-    logger.info("/voucher/edit");
-
-
-
+    logger.info("/voucher/addAndUpdate");
+    mainService.addOrUpdateVoucher(voucherRequest);
     return ApiResponse.ok("成功");
   }
 
   @PostMapping(value = "/voucher/toggle")
   ApiResponse toggleVoucher(@RequestBody CurdRequest curdRequest) {
     logger.info("/voucher/toggle");
-
-
-
+    mainService.toggleVoucher(curdRequest);
     return ApiResponse.ok("成功");
   }
 
-  @PostMapping(value = "/voucher/get")
-  ApiResponse getVoucher(@RequestBody CurdRequest curdRequest) {
-    logger.info("/voucher/get");
-
-
-
-    return ApiResponse.ok("成功");
+  @PostMapping(value = "/voucher/claim")
+  ApiResponse claimVoucher(@RequestBody ClaimVoucherRequest claimVoucherRequest) {
+    logger.info("/voucher/claim");
+    return mainService.claimVoucher(claimVoucherRequest);
   }
 
-  @PostMapping(value = "/voucher/detail")
-  ApiResponse queryVoucherUseDetail(@RequestBody CurdRequest curdRequest) {
+  @PostMapping(value = "/voucher/issueDetail")
+  ApiResponse queryVoucherIssueDetail(@RequestBody CurdRequest curdRequest) {
     logger.info("/voucher/detail ");
+    return mainService.queryVoucherIssueDetail(curdRequest);
+  }
 
-    return ApiResponse.ok("成功");
+  @PostMapping(value = "/voucher/merchantDetail")
+  ApiResponse queryMerchantVoucherDetail(@RequestBody CurdRequest curdRequest) {
+    logger.info("/voucher/detail ");
+    return mainService.queryMerchantVoucherDetail(curdRequest);
   }
 
 }
