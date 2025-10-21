@@ -336,19 +336,6 @@ public final class StringUtils {
     }
 
     /**
-     * 重复字符串
-     * @param str 原字符串
-     * @param count 重复次数
-     * @return 重复后的字符串
-     */
-    public static String repeat(String str, int count) {
-        if (str == null || count <= 0) {
-            return "";
-        }
-        return str.repeat(count);
-    }
-
-    /**
      * 截取字符串，如果超过最大长度则添加省略号
      * @param str 原字符串
      * @param maxLength 最大长度
