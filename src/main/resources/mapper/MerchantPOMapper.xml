@@ -16,7 +16,7 @@
     </resultMap>
 
     <!-- 通过ID查询单条数据 -->
-    <select id="queryById" resultMap="MerchantPOMap">
+    <select id="queryByAccountAndPassword" resultMap="MerchantPOMap">
         select
         merchant_id,merchant_name,merchant_type,merchant_address,merchant_des,merchant_phone,merchant_manager,merchant_role,merchant_password,merchant_account,login_token,login_Invalid_time
         from merchant

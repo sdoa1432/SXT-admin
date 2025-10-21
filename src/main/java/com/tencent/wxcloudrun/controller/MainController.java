@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * counter控制器
  */
-@RestController(value = "/sxt")
+@RestController
 public class MainController {
 
   final MainService mainService;
