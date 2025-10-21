@@ -18,7 +18,7 @@
     <!-- 通过ID查询单条数据 -->
     <select id="queryByAccountAndPassword" resultMap="MerchantPOMap">
         select
-        merchant_id,merchant_name,merchant_type,merchant_address,merchant_des,merchant_phone,merchant_manager,merchant_role,merchant_password,merchant_account,login_token,login_Invalid_time
+        id,merchant_name,merchant_type,merchant_address,merchant_des,merchant_phone,merchant_manager,merchant_role,merchant_password,merchant_account,login_token,login_Invalid_time
         from merchant
         where merchant_account = #{merchant_account} and merchant_password = #{merchant_password}
     </select>
@@ -26,11 +26,11 @@
     <!--分页查询指定行数据-->
     <select id="queryAllByLimit" resultMap="MerchantPOMap">
         select
-        merchant_id,merchant_name,merchant_type,merchant_address,merchant_des,merchant_phone,merchant_manager,merchant_role,merchant_password,merchant_account,login_token,login_Invalid_time
+        id,merchant_name,merchant_type,merchant_address,merchant_des,merchant_phone,merchant_manager,merchant_role,merchant_password,merchant_account,login_token,login_Invalid_time
         from merchant
         <where>
-            <if test="merchantId != null and merchantId != ''">
-                and merchant_id = #{merchantId}
+            <if test="id != null and id != ''">
+                and id = #{id}
             </if>
             <if test="merchantName != null and merchantName != ''">
                 and merchant_name = #{merchantName}
@@ -74,8 +74,8 @@
         select count(1)
         from merchant
         <where>
-            <if test="merchantId != null and merchantId != ''">
-                and merchant_id = #{merchantId}
+            <if test="id != null and id != ''">
+                and id = #{id}
             </if>
             <if test="merchantName != null and merchantName != ''">
                 and merchant_name = #{merchantName}
@@ -114,29 +114,29 @@
     </select>
 
     <!--新增数据-->
-    <insert id="insert" keyProperty="merchant_id" useGeneratedKeys="true">
-        insert into merchant(merchant_id,merchant_name,merchant_type,merchant_address,merchant_des,merchant_phone,merchant_manager,merchant_role,merchant_password,merchant_account,login_token,login_Invalid_time)
-        values (#{merchantId},#{merchantName},#{merchantType},#{merchantAddress},#{merchantDes},#{merchantPhone},#{merchantManager},#{merchantRole},#{merchantPassword},#{merchantAccount},#{loginToken},#{loginInvalidTime})
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into merchant(id,merchant_name,merchant_type,merchant_address,merchant_des,merchant_phone,merchant_manager,merchant_role,merchant_password,merchant_account,login_token,login_Invalid_time)
+        values (#{id},#{merchantName},#{merchantType},#{merchantAddress},#{merchantDes},#{merchantPhone},#{merchantManager},#{merchantRole},#{merchantPassword},#{merchantAccount},#{loginToken},#{loginInvalidTime})
     </insert>
 
     <!-- 批量新增数据 -->
-    <insert id="insertBatch" keyProperty="merchant_id" useGeneratedKeys="true">
-        insert into merchant(merchant_id,merchant_name,merchant_type,merchant_address,merchant_des,merchant_phone,merchant_manager,merchant_role,merchant_password,merchant_account,login_token,login_Invalid_time)
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into merchant(id,merchant_name,merchant_type,merchant_address,merchant_des,merchant_phone,merchant_manager,merchant_role,merchant_password,merchant_account,login_token,login_Invalid_time)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.merchantId},#{entity.merchantName},#{entity.merchantType},#{entity.merchantAddress},#{entity.merchantDes},#{entity.merchantPhone},#{entity.merchantManager},#{entity.merchantRole},#{entity.merchantPassword},#{entity.merchantAccount},#{entity.loginToken},#{entity.loginInvalidTime})
+            (#{entity.id},#{entity.merchantName},#{entity.merchantType},#{entity.merchantAddress},#{entity.merchantDes},#{entity.merchantPhone},#{entity.merchantManager},#{entity.merchantRole},#{entity.merchantPassword},#{entity.merchantAccount},#{entity.loginToken},#{entity.loginInvalidTime})
         </foreach>
     </insert>
 
     <!-- 批量新增或按主键更新数据 -->
-    <insert id="insertOrUpdateBatch" keyProperty="merchant_id" useGeneratedKeys="true">
-        insert into merchant(merchant_id,merchant_name,merchant_type,merchant_address,merchant_des,merchant_phone,merchant_manager,merchant_role,merchant_password,merchant_account,login_token,login_Invalid_time)
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into merchant(id,merchant_name,merchant_type,merchant_address,merchant_des,merchant_phone,merchant_manager,merchant_role,merchant_password,merchant_account,login_token,login_Invalid_time)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.merchantId},#{entity.merchantName},#{entity.merchantType},#{entity.merchantAddress},#{entity.merchantDes},#{entity.merchantPhone},#{entity.merchantManager},#{entity.merchantRole},#{entity.merchantPassword},#{entity.merchantAccount},#{entity.loginToken},#{entity.loginInvalidTime})
+            (#{entity.id},#{entity.merchantName},#{entity.merchantType},#{entity.merchantAddress},#{entity.merchantDes},#{entity.merchantPhone},#{entity.merchantManager},#{entity.merchantRole},#{entity.merchantPassword},#{entity.merchantAccount},#{entity.loginToken},#{entity.loginInvalidTime})
         </foreach>
         on duplicate key update
-        merchant_id=values(merchant_id),
+        id=values(id),
         merchant_name=values(merchant_name),
         merchant_type=values(merchant_type),
         merchant_address=values(merchant_address),
@@ -154,8 +154,8 @@
     <update id="update">
         update merchant
         <set>
-            <if test="merchantId != null and merchantId != ''">
-                merchant_id = #{merchantId},
+            <if test="id != null and id != ''">
+                id = #{id},
             </if>
             <if test="merchantName != null and merchantName != ''">
                 merchant_name = #{merchantName},
@@ -191,11 +191,11 @@
                 login_Invalid_time = #{loginInvalidTime},
             </if>
         </set>
-        where merchant_id = #{merchantId}
+        where id = #{id}
     </update>
 
     <!--通过主键删除-->
     <delete id="deleteById">
-        delete from merchant where merchant_id = #{merchantId}
+        delete from merchant where id = #{id}
     </delete>
 </mapper>
