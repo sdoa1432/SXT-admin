@@ -7,6 +7,8 @@ import com.tencent.wxcloudrun.dto.LoginRequest;
 import com.tencent.wxcloudrun.dto.VoucherRequest;
 import com.tencent.wxcloudrun.result.LoginResult;
 
+import javax.servlet.http.HttpServletRequest;
+
 public interface MainService {
 
 
@@ -23,4 +25,6 @@ public interface MainService {
     ApiResponse queryVoucherIssueDetail(CurdRequest curdRequest);
 
     ApiResponse queryMerchantVoucherDetail(CurdRequest curdRequest);
+
+    ApiResponse claimDetail(HttpServletRequest head);
 }

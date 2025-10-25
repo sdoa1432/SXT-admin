@@ -24,6 +24,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -147,5 +148,10 @@ public class MainServiceImpl implements MainService {
     queryMerchantVoucher.setShow(true);
     List<MerchantVoucherManager> voucherManagerList = voucherManagerMapper.queryAll(queryMerchantVoucher);
     return ApiResponse.ok(voucherManagerList);
+  }
+
+  @Override
+  public ApiResponse claimDetail(HttpServletRequest head) {
+    return ApiResponse.ok();
   }
 }

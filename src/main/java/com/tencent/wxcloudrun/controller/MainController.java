@@ -1,5 +1,6 @@
 package com.tencent.wxcloudrun.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.tencent.wxcloudrun.dto.ClaimVoucherRequest;
 import com.tencent.wxcloudrun.dto.CurdRequest;
 import com.tencent.wxcloudrun.dto.VoucherRequest;
@@ -13,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * counter控制器
@@ -49,9 +52,15 @@ public class MainController {
   }
 
   @PostMapping(value = "/voucher/claim")
-  ApiResponse claimVoucher(@RequestBody ClaimVoucherRequest claimVoucherRequest) {
-    logger.info("/voucher/claim");
+  ApiResponse claimVoucher(@RequestBody ClaimVoucherRequest claimVoucherRequest, HttpServletRequest head) {
+    logger.info("/voucher/claim head -> " + JSON.toJSONString(head));
     return mainService.claimVoucher(claimVoucherRequest);
+  }
+
+  @PostMapping(value = "/voucher/claimDetail")
+  ApiResponse claimDetail(@RequestBody ClaimVoucherRequest claimVoucherRequest, HttpServletRequest head) {
+    logger.info("/voucher/claimDetail head -> " + JSON.toJSONString(head));
+    return mainService.claimDetail(head);
   }
 
   @PostMapping(value = "/voucher/issueDetail")
