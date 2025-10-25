@@ -3,6 +3,8 @@ package com.tencent.wxcloudrun.utils;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 
 import java.util.Calendar;
@@ -11,12 +13,14 @@ import java.util.HashMap;
 
 public class JwtUtil {
 
+    private static final Logger log = LoggerFactory.getLogger(JwtUtil.class);
     @Value("${jwt.auth.key}")
     private static String key; // 密钥，请更改为一个复杂的字符串
     private static Integer invild_minutes = 30; // 令牌过期分钟
 
     // 生成Token
     public static String signToken(String userId) {
+        log.info("生成token userId -> " + userId + " key -> " + key);
         HashMap<String, Object> map = new HashMap<>();
         Date now = DateUtil.now();
 
@@ -25,6 +29,7 @@ public class JwtUtil {
                 .withClaim("userId", userId) // 将用户ID放入payload
                 .withExpiresAt(DateUtil.addMinutes(now,invild_minutes)) // 设置过期时间
                 .sign(Algorithm.HMAC256(key)); // 使用密钥签名
+        log.info("生成token token -> " + token);
         return token;
     }
 
