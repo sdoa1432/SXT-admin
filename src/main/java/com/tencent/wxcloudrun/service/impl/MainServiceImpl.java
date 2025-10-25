@@ -1,5 +1,6 @@
 package com.tencent.wxcloudrun.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.tencent.wxcloudrun.config.ApiResponse;
 import com.tencent.wxcloudrun.dao.MerchantMapper;
 import com.tencent.wxcloudrun.dao.MerchantVoucherManagerMapper;
@@ -36,14 +37,15 @@ public class MainServiceImpl implements MainService {
   MerchantMapper merchantMapper;
   @Autowired
   MerchantVoucherManagerMapper voucherManagerMapper;
-    @Autowired
-    private UserVoucherMapper userVoucherMapper;
+  @Autowired
+  private UserVoucherMapper userVoucherMapper;
 
 
   @Override
   public ApiResponse login(LoginRequest loginRequest) {
 
     Merchant merchant = merchantMapper.queryByAccountAndPassword(loginRequest.getAccount(), loginRequest.getPassword());
+    log.info("当前登录用户 -> " + JSON.toJSONString(merchant));
     if (merchant != null){
       String token = JwtUtil.signToken(merchant.getId());
       merchant.setLoginToken(token);
@@ -127,6 +129,8 @@ public class MainServiceImpl implements MainService {
         }
       }
       detail.setVoucherName(voucherManager.getVoucherName());
+      detail.setVoucherAmt(voucherManager.getVoucherAmt());
+      detail.setVoucherDes(voucherManager.getVoucherDes());
       detail.setIssueNum(userVouchers.size());
       detail.setVerifyNum(verifyNum);
       result.add(detail);
