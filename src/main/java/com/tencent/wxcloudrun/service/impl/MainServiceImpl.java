@@ -39,6 +39,8 @@ public class MainServiceImpl implements MainService {
   MerchantVoucherManagerMapper voucherManagerMapper;
   @Autowired
   private UserVoucherMapper userVoucherMapper;
+  @Autowired
+  JwtUtil jwtUtil;
 
 
   @Override
@@ -47,7 +49,7 @@ public class MainServiceImpl implements MainService {
     Merchant merchant = merchantMapper.queryByAccountAndPassword(loginRequest.getAccount(), loginRequest.getPassword());
     log.info("当前登录用户 -> " + JSON.toJSONString(merchant));
     if (merchant != null){
-      String token = JwtUtil.signToken(merchant.getId());
+      String token = jwtUtil.signToken(merchant.getId());
       merchant.setLoginToken(token);
       merchantMapper.update(merchant);
       log.info("登录成功 返回token以及登录超时时间");
@@ -62,7 +64,7 @@ public class MainServiceImpl implements MainService {
   @Override
   public boolean checklogin(String token) {
     try {
-      JwtUtil.verify(token);
+      jwtUtil.verify(token);
       return true;
     }catch (Exception e) {
       return false;

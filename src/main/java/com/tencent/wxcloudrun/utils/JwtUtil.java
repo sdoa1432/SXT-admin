@@ -6,11 +6,13 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
+@Component
 public class JwtUtil {
 
     private static final Logger log = LoggerFactory.getLogger(JwtUtil.class);
@@ -20,7 +22,7 @@ public class JwtUtil {
     private static Integer invild_minutes = 30; // 令牌过期分钟
 
     // 生成Token
-    public static String signToken(String userId) {
+    public String signToken(String userId) {
         log.info("生成token userId -> " + userId + " key -> " + key);
         HashMap<String, Object> map = new HashMap<>();
         Date now = DateUtil.now();
@@ -35,12 +37,12 @@ public class JwtUtil {
     }
 
     // 验证Token并返回DecodedJWT
-    public static DecodedJWT verify(String token) {
+    public DecodedJWT verify(String token) {
         return JWT.require(Algorithm.HMAC256(key)).build().verify(token);
     }
 
     // 从Token中获取用户ID
-    public static String getUserId(String token) {
+    public String getUserId(String token) {
         DecodedJWT decodedJWT = JWT.require(Algorithm.HMAC256(key)).build().verify(token);
         return decodedJWT.getClaim("userId").asString();
     }
