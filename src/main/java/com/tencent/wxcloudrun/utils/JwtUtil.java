@@ -11,7 +11,7 @@ import java.util.HashMap;
 
 public class JwtUtil {
 
-    @Value("${value.from.file}")
+    @Value("${jwt.auth.key}")
     private static String key; // 密钥，请更改为一个复杂的字符串
     private static Integer invild_minutes = 30; // 令牌过期分钟
 
