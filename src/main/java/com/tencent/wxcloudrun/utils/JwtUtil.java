@@ -15,7 +15,8 @@ public class JwtUtil {
 
     private static final Logger log = LoggerFactory.getLogger(JwtUtil.class);
     @Value("${jwt.auth.key}")
-    private static String key; // 密钥，请更改为一个复杂的字符串
+    private String key; // 密钥，请更改为一个复杂的字符串
+
     private static Integer invild_minutes = 30; // 令牌过期分钟
 
     // 生成Token
