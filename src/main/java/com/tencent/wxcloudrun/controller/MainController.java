@@ -13,9 +13,11 @@ import com.tencent.wxcloudrun.service.MainService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * counter控制器
@@ -54,17 +56,15 @@ public class MainController {
   }
 
   @PostMapping(value = "/voucher/claim")
-  ApiResponse claimVoucher(@RequestBody ClaimVoucherRequest claimVoucherRequest, HttpServletRequest head) {
-    log.info("/voucher/claim ");
-    utils.printHead(head);
+  ApiResponse claimVoucher(@RequestBody ClaimVoucherRequest claimVoucherRequest, @RequestHeader("x-wx-openid") String openid) {
+    log.info("/voucher/claim openid -> " + openid);
     return mainService.claimVoucher(claimVoucherRequest);
   }
 
   @PostMapping(value = "/voucher/claimDetail")
-  ApiResponse claimDetail(@RequestBody ClaimVoucherRequest claimVoucherRequest, HttpServletRequest head) {
-    log.info("/voucher/claimDetail ");
-    utils.printHead(head);
-    return mainService.claimDetail(head);
+  ApiResponse claimDetail(@RequestBody ClaimVoucherRequest claimVoucherRequest, @RequestHeader("x-wx-openid") String openid) {
+    log.info("/voucher/claimDetail openid -> " + openid);
+    return mainService.claimDetail(openid);
   }
 
   @PostMapping(value = "/voucher/issueDetail")

@@ -19,6 +19,6 @@ public class Utils {
             String headerValue = request.getHeader(headerName);
             sb.append(headerName).append(": ").append(headerValue).append("\n");
         }
-        log.info("" + sb.toString());
+        log.info(sb.toString());
     }
 }

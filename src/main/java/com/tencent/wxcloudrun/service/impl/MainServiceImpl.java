@@ -151,7 +151,7 @@ public class MainServiceImpl implements MainService {
   }
 
   @Override
-  public ApiResponse claimDetail(HttpServletRequest head) {
+  public ApiResponse claimDetail(String openId) {
     return ApiResponse.ok();
   }
 }

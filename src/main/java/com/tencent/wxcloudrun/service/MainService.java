@@ -26,5 +26,5 @@ public interface MainService {
 
     ApiResponse queryMerchantVoucherDetail(CurdRequest curdRequest);
 
-    ApiResponse claimDetail(HttpServletRequest head);
+    ApiResponse claimDetail(String head);
 }
