@@ -154,7 +154,7 @@ public class MainServiceImpl implements MainService {
     MerchantDetailResult merchantDetailResult = new MerchantDetailResult();
     BeanUtils.copyProperties(merchant,merchantDetailResult);
     merchantDetailResult.getVoucherList().addAll(voucherManagerList);
-    return ApiResponse.ok(voucherManagerList);
+    return ApiResponse.ok(merchantDetailResult);
   }
 
   @Override
