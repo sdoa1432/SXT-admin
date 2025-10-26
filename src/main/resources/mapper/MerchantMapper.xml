@@ -74,6 +74,47 @@
         limit #{pageable.offset}, #{pageable.pageSize}
     </select>
 
+    <select id="queryAll" resultMap="MerchantMap">
+        select
+        id,merchant_name,merchant_type,merchant_address,merchant_des,merchant_phone,merchant_manager,merchant_role,merchant_password,merchant_account,login_token
+        from merchant
+        <where>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="merchantName != null and merchantName != ''">
+                and merchant_name = #{merchantName}
+            </if>
+            <if test="merchantType != null and merchantType != ''">
+                and merchant_type = #{merchantType}
+            </if>
+            <if test="merchantAddress != null and merchantAddress != ''">
+                and merchant_address = #{merchantAddress}
+            </if>
+            <if test="merchantDes != null and merchantDes != ''">
+                and merchant_des = #{merchantDes}
+            </if>
+            <if test="merchantPhone != null and merchantPhone != ''">
+                and merchant_phone = #{merchantPhone}
+            </if>
+            <if test="merchantManager != null and merchantManager != ''">
+                and merchant_manager = #{merchantManager}
+            </if>
+            <if test="merchantRole != null and merchantRole != ''">
+                and merchant_role = #{merchantRole}
+            </if>
+            <if test="merchantPassword != null and merchantPassword != ''">
+                and merchant_password = #{merchantPassword}
+            </if>
+            <if test="merchantAccount != null and merchantAccount != ''">
+                and merchant_account = #{merchantAccount}
+            </if>
+            <if test="loginToken != null and loginToken != ''">
+                and login_token = #{loginToken}
+            </if>
+        </where>
+    </select>
+
     <!--统计总行数-->
     <select id="count" resultType="java.lang.Long">
         select count(1)

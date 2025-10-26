@@ -40,6 +40,11 @@ public class MainController {
     log.info("/merchant/login");
     return mainService.login(loginRequest);
   }
+  @PostMapping(value = "/merchant/list")
+  ApiResponse queryMerchantList(@RequestBody CurdRequest request) {
+    log.info("/merchant/list");
+    return mainService.queryMerchantList(request);
+  }
 
   @PostMapping(value = "/voucher/addAndUpdate")
   ApiResponse addVoucher(@RequestBody VoucherRequest voucherRequest) {

@@ -22,6 +22,7 @@ import com.tencent.wxcloudrun.utils.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
@@ -153,5 +154,18 @@ public class MainServiceImpl implements MainService {
   @Override
   public ApiResponse claimDetail(String openId) {
     return ApiResponse.ok();
+  }
+
+  @Override
+  public ApiResponse queryMerchantList(CurdRequest request) {
+    Merchant queryMerchant = new Merchant();
+    if (StringUtils.isNotBlank(request.getName())){
+      queryMerchant.setMerchantName(request.getName());
+    }
+    if (request.getType() != 0){
+      queryMerchant.setMerchantType(request.getType());
+    }
+    List<Merchant> result = merchantMapper.queryAll(queryMerchant);
+    return ApiResponse.ok(result);
   }
 }

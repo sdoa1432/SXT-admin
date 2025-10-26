@@ -27,4 +27,7 @@ public interface MainService {
     ApiResponse queryMerchantVoucherDetail(CurdRequest curdRequest);
 
     ApiResponse claimDetail(String head);
+
+    ApiResponse queryMerchantList(CurdRequest request);
+
 }

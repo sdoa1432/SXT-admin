@@ -24,6 +24,7 @@ public interface MerchantMapper {
      * @return 对象列表
      */
     List<Merchant> queryAllByLimit(Merchant merchant, @Param("pageable") Pageable pageable);
+    List<Merchant> queryAll(Merchant merchant);
     /**
      * 统计总行数
      *
