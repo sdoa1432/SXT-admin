@@ -61,14 +61,14 @@ public class MainController {
   }
 
   @PostMapping(value = "/voucher/claim")
-  ApiResponse claimVoucher(@RequestBody ClaimVoucherRequest claimVoucherRequest, @RequestHeader("x-wx-openid") String openid) {
-    log.info("/voucher/claim openid -> " + openid);
+  ApiResponse claimVoucher(@RequestBody ClaimVoucherRequest claimVoucherRequest) {
+    log.info("/voucher/claim ");
     return mainService.claimVoucher(claimVoucherRequest);
   }
 
   @PostMapping(value = "/voucher/claimDetail")
-  ApiResponse claimDetail(@RequestBody ClaimVoucherRequest claimVoucherRequest, @RequestHeader("x-wx-openid") String openid) {
-    log.info("/voucher/claimDetail openid -> " + openid);
+  ApiResponse claimDetail(@RequestBody ClaimVoucherRequest claimVoucherRequest) {
+    log.info("/voucher/claimDetail ");
     return mainService.claimDetail(openid);
   }
 

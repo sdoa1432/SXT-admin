@@ -104,14 +104,22 @@ public class MainServiceImpl implements MainService {
   public ApiResponse claimVoucher(ClaimVoucherRequest claimVoucherRequest) {
     MerchantVoucherManager voucherManager = voucherManagerMapper.queryById(claimVoucherRequest.getVoucherId());
     if (voucherManager != null){
-      UserVoucher userVoucher = new UserVoucher();
-      userVoucher.setId(RandomStringUtils.generate32());
-      userVoucher.setVoucherId(claimVoucherRequest.getVoucherId());
-      userVoucher.setVerify(false);
-      userVoucher.setObtainedTime(new Timestamp(DateUtil.now().getTime()));
-      userVoucher.setUserId(claimVoucherRequest.getUserId());
-      userVoucherMapper.insert(userVoucher);
-      return ApiResponse.error("领取成功！");
+      UserVoucher queryClaim = new UserVoucher();
+      queryClaim.setVoucherId(voucherManager.getId());
+      queryClaim.setUserId(claimVoucherRequest.getUserId());
+      List<UserVoucher> exist = userVoucherMapper.queryAll(queryClaim);
+      if (exist != null && !exist.isEmpty()){
+        return ApiResponse.error("优惠券信息错误！");
+      }else {
+        UserVoucher userVoucher = new UserVoucher();
+        userVoucher.setId(RandomStringUtils.generate32());
+        userVoucher.setVoucherId(claimVoucherRequest.getVoucherId());
+        userVoucher.setVerify(false);
+        userVoucher.setObtainedTime(new Timestamp(DateUtil.now().getTime()));
+        userVoucher.setUserId(claimVoucherRequest.getUserId());
+        userVoucherMapper.insert(userVoucher);
+        return ApiResponse.error("领取成功！");
+      }
     }else {
       return ApiResponse.error("优惠券信息错误！");
     }
