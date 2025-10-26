@@ -84,4 +84,10 @@ public class MainController {
     return mainService.queryMerchantVoucherDetail(curdRequest);
   }
 
+  @PostMapping(value = "/voucher/merchantTypeVoucher")
+  ApiResponse queryMerchantTypeVoucher(@RequestBody CurdRequest curdRequest) {
+    log.info("/voucher/merchantTypeVoucher ");
+    return mainService.queryMerchantTypeVoucher(curdRequest);
+  }
+
 }

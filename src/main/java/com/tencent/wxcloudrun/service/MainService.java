@@ -30,4 +30,5 @@ public interface MainService {
 
     ApiResponse queryMerchantList(CurdRequest request);
 
+    ApiResponse queryMerchantTypeVoucher(CurdRequest curdRequest);
 }

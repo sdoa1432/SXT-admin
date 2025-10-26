@@ -188,4 +188,10 @@ public class MainServiceImpl implements MainService {
     }
     return ApiResponse.ok(back);
   }
+
+  @Override
+  public ApiResponse queryMerchantTypeVoucher(CurdRequest curdRequest) {
+    List<MerchantVoucherManager> voucherManagerList = voucherManagerMapper.queryByMerchantType(curdRequest.getType());
+    return ApiResponse.ok(voucherManagerList);
+  }
 }

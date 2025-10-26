@@ -16,6 +16,8 @@ public interface MerchantVoucherManagerMapper {
      * @return 实例对象
      */
     MerchantVoucherManager queryById(String id);
+
+    List<MerchantVoucherManager> queryByMerchantType(int type);
     /**
      * 分页查询指定行数据
      *
