@@ -16,6 +16,7 @@ public interface MerchantMapper {
      * @return 实例对象
      */
     Merchant queryByAccountAndPassword(String merchant_account, String merchant_password);
+    Merchant queryById(String id);
     /**
      * 分页查询指定行数据
      *

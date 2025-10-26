@@ -13,6 +13,7 @@ import com.tencent.wxcloudrun.model.Merchant;
 import com.tencent.wxcloudrun.model.MerchantVoucherManager;
 import com.tencent.wxcloudrun.model.UserVoucher;
 import com.tencent.wxcloudrun.result.LoginResult;
+import com.tencent.wxcloudrun.result.MerchantDetailResult;
 import com.tencent.wxcloudrun.result.MerchantResult;
 import com.tencent.wxcloudrun.result.VoucherIssueDetail;
 import com.tencent.wxcloudrun.service.MainService;
@@ -145,10 +146,14 @@ public class MainServiceImpl implements MainService {
 
   @Override
   public ApiResponse queryMerchantVoucherDetail(CurdRequest curdRequest) {
+    Merchant merchant = merchantMapper.queryById(curdRequest.getId());
     MerchantVoucherManager queryMerchantVoucher = new MerchantVoucherManager();
     queryMerchantVoucher.setBelongMerchantId(curdRequest.getId());
     queryMerchantVoucher.setShow(true);
     List<MerchantVoucherManager> voucherManagerList = voucherManagerMapper.queryAll(queryMerchantVoucher);
+    MerchantDetailResult merchantDetailResult = new MerchantDetailResult();
+    BeanUtils.copyProperties(merchant,merchantDetailResult);
+    merchantDetailResult.getVoucherList().addAll(voucherManagerList);
     return ApiResponse.ok(voucherManagerList);
   }
 

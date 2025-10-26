@@ -1,9 +1,13 @@
 package com.tencent.wxcloudrun.result;
 
+import com.tencent.wxcloudrun.model.MerchantVoucherManager;
 import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
-public class MerchantResult {
+public class MerchantDetailResult {
     /** 主键 */
     private String id ;
     /** 商户名称,; */
@@ -18,4 +22,7 @@ public class MerchantResult {
     private String merchantPhone ;
     /** 商户联系人,; */
     private String merchantManager ;
+
+    private List<MerchantVoucherManager> voucherList = new ArrayList<>();
+
 }
