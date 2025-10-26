@@ -20,9 +20,15 @@
 
     <select id="queryByMerchantType" resultMap="MerchantVoucherManagerMap">
         select
-            id,voucher_name,voucher_amt,belong_merchant_id,voucher_des,is_show
-        from merchant_voucher_manager mvm
-        inner join merchant m on m.merchantType = #{type} and mvm.belong_merchant_id = m.id
+            mvm.id,
+            mvm.voucher_name,
+            mvm.voucher_amt,
+            mvm.belong_merchant_id,
+            mvm.voucher_des,
+            mvm.is_show
+        from
+            merchant_voucher_manager mvm
+                inner join merchant m on m.merchant_type = #{type} and mvm.belong_merchant_id = m.id
     </select>
 
     <!--分页查询指定行数据-->
