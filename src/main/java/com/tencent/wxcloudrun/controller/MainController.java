@@ -67,9 +67,9 @@ public class MainController {
   }
 
   @PostMapping(value = "/voucher/claimDetail")
-  ApiResponse claimDetail(@RequestBody ClaimVoucherRequest claimVoucherRequest) {
+  ApiResponse claimDetail(@RequestBody CurdRequest curdRequest) {
     log.info("/voucher/claimDetail ");
-    return mainService.claimDetail(openid);
+    return mainService.claimDetail(curdRequest);
   }
 
   @PostMapping(value = "/voucher/issueDetail")
