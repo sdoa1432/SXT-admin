@@ -13,6 +13,7 @@ import com.tencent.wxcloudrun.model.Merchant;
 import com.tencent.wxcloudrun.model.MerchantVoucherManager;
 import com.tencent.wxcloudrun.model.UserVoucher;
 import com.tencent.wxcloudrun.result.LoginResult;
+import com.tencent.wxcloudrun.result.MerchantResult;
 import com.tencent.wxcloudrun.result.VoucherIssueDetail;
 import com.tencent.wxcloudrun.service.MainService;
 import com.tencent.wxcloudrun.utils.DateUtil;
@@ -165,7 +166,13 @@ public class MainServiceImpl implements MainService {
     if (request.getType() != 0){
       queryMerchant.setMerchantType(request.getType());
     }
-    List<Merchant> result = merchantMapper.queryAll(queryMerchant);
-    return ApiResponse.ok(result);
+    List<Merchant> data = merchantMapper.queryAll(queryMerchant);
+    List<MerchantResult> back = new ArrayList<>();
+    for (Merchant merchant : data) {
+      MerchantResult result = new MerchantResult();
+      BeanUtils.copyProperties(merchant,result);
+      back.add(result);
+    }
+    return ApiResponse.ok(back);
   }
 }
