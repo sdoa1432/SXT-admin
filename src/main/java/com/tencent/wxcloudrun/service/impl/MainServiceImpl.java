@@ -90,7 +90,7 @@ public class MainServiceImpl implements MainService {
 
   @Override
   public void toggleVoucher(CurdRequest curdRequest) {
-    MerchantVoucherManager voucherManager = voucherManagerMapper.queryById(curdRequest.getId());
+    MerchantVoucherManager voucherManager = voucherManagerMapper.queryById(curdRequest.getVoucherId());
     if (voucherManager != null){
       voucherManager.setShow(!voucherManager.isShow());
       voucherManagerMapper.update(voucherManager);
@@ -125,7 +125,7 @@ public class MainServiceImpl implements MainService {
   @Override
   public ApiResponse queryVoucherIssueDetail(CurdRequest curdRequest) {
     MerchantVoucherManager query = new MerchantVoucherManager();
-    query.setBelongMerchantId(curdRequest.getId());
+    query.setBelongMerchantId(curdRequest.getMerchantId());
     List<MerchantVoucherManager> voucherManagerList = voucherManagerMapper.queryAll(query);
     List<VoucherIssueDetail> result = new ArrayList<>();
     for (MerchantVoucherManager voucherManager : voucherManagerList) {
@@ -151,9 +151,9 @@ public class MainServiceImpl implements MainService {
 
   @Override
   public ApiResponse queryMerchantVoucherDetail(CurdRequest curdRequest) {
-    Merchant merchant = merchantMapper.queryById(curdRequest.getId());
+    Merchant merchant = merchantMapper.queryById(curdRequest.getMerchantId());
     MerchantVoucherManager queryMerchantVoucher = new MerchantVoucherManager();
-    queryMerchantVoucher.setBelongMerchantId(curdRequest.getId());
+    queryMerchantVoucher.setBelongMerchantId(curdRequest.getMerchantId());
     List<MerchantVoucherManager> voucherManagerList = voucherManagerMapper.queryAll(queryMerchantVoucher);
     MerchantDetailResult merchantDetailResult = new MerchantDetailResult();
     BeanUtils.copyProperties(merchant,merchantDetailResult);
@@ -164,7 +164,7 @@ public class MainServiceImpl implements MainService {
   @Override
   public ApiResponse claimDetail(CurdRequest curdRequest) {
     UserVoucher queryClaim = new UserVoucher();
-    queryClaim.setUserId(curdRequest.getId());
+    queryClaim.setUserId(curdRequest.getUserId());
     List<UserVoucher> userVouchers = userVoucherMapper.queryAll(queryClaim);
     List<UserVoucherDetail> userVoucherDetails = new ArrayList<>();
     for ( UserVoucher userVoucher : userVouchers ){
