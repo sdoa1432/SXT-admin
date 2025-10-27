@@ -202,6 +202,14 @@ public class MainServiceImpl implements MainService {
   @Override
   public ApiResponse queryMerchantTypeVoucher(CurdRequest curdRequest) {
     List<MerchantVoucherManager> voucherManagerList = voucherManagerMapper.queryByMerchantType(curdRequest.getType());
-    return ApiResponse.ok(voucherManagerList);
+    List<VoucherMerchantResult> voucherMerchantResults = new ArrayList<>();
+    for ( MerchantVoucherManager voucherManager : voucherManagerList ){
+      VoucherMerchantResult result = new VoucherMerchantResult();
+      BeanUtils.copyProperties(voucherManager,result);
+      Merchant merchant = merchantMapper.queryById(voucherManager.getBelongMerchantId());
+      result.setMerchantName(merchant.getMerchantName());
+      voucherMerchantResults.add(result);
+    }
+    return ApiResponse.ok(voucherMerchantResults);
   }
 }
