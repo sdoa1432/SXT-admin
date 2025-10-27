@@ -115,7 +115,7 @@ public class MainServiceImpl implements MainService {
         userVoucher.setObtainedTime(new Timestamp(DateUtil.now().getTime()));
         userVoucher.setUserId(claimVoucherRequest.getUserId());
         userVoucherMapper.insert(userVoucher);
-        return ApiResponse.error("领取成功！");
+        return ApiResponse.ok("领取成功！");
       }
     }else {
       return ApiResponse.error("优惠券信息错误！");
