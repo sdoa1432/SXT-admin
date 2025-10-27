@@ -12,10 +12,7 @@ import com.tencent.wxcloudrun.dto.VoucherRequest;
 import com.tencent.wxcloudrun.model.Merchant;
 import com.tencent.wxcloudrun.model.MerchantVoucherManager;
 import com.tencent.wxcloudrun.model.UserVoucher;
-import com.tencent.wxcloudrun.result.LoginResult;
-import com.tencent.wxcloudrun.result.MerchantDetailResult;
-import com.tencent.wxcloudrun.result.MerchantResult;
-import com.tencent.wxcloudrun.result.VoucherIssueDetail;
+import com.tencent.wxcloudrun.result.*;
 import com.tencent.wxcloudrun.service.MainService;
 import com.tencent.wxcloudrun.utils.DateUtil;
 import com.tencent.wxcloudrun.utils.JwtUtil;
@@ -167,7 +164,20 @@ public class MainServiceImpl implements MainService {
 
   @Override
   public ApiResponse claimDetail(CurdRequest curdRequest) {
-    return ApiResponse.ok();
+    UserVoucher queryClaim = new UserVoucher();
+    queryClaim.setUserId(curdRequest.getId());
+    List<UserVoucher> userVouchers = userVoucherMapper.queryAll(queryClaim);
+    List<UserVoucherDetail> userVoucherDetails = new ArrayList<>();
+    for ( UserVoucher userVoucher : userVouchers ){
+      UserVoucherDetail detail = new UserVoucherDetail();
+      BeanUtils.copyProperties(userVoucher,detail);
+      MerchantVoucherManager voucherManager = voucherManagerMapper.queryById(userVoucher.getVoucherId());
+      detail.setVoucherAmt(voucherManager.getVoucherAmt());
+      detail.setVoucherDes(voucherManager.getVoucherDes());
+      detail.setVoucherName(voucherManager.getVoucherName());
+      userVoucherDetails.add(detail);
+    }
+    return ApiResponse.ok(userVoucherDetails);
   }
 
   @Override
