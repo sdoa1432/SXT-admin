@@ -154,7 +154,6 @@ public class MainServiceImpl implements MainService {
     Merchant merchant = merchantMapper.queryById(curdRequest.getId());
     MerchantVoucherManager queryMerchantVoucher = new MerchantVoucherManager();
     queryMerchantVoucher.setBelongMerchantId(curdRequest.getId());
-    queryMerchantVoucher.setShow(true);
     List<MerchantVoucherManager> voucherManagerList = voucherManagerMapper.queryAll(queryMerchantVoucher);
     MerchantDetailResult merchantDetailResult = new MerchantDetailResult();
     BeanUtils.copyProperties(merchant,merchantDetailResult);

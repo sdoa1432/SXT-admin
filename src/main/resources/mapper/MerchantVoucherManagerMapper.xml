@@ -29,6 +29,7 @@
         from
             merchant_voucher_manager mvm
                 inner join merchant m on m.merchant_type = #{type} and mvm.belong_merchant_id = m.id
+        where mvm.is_show = 1
     </select>
 
     <!--分页查询指定行数据-->
