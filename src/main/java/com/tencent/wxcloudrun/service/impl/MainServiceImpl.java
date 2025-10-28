@@ -112,10 +112,10 @@ public class MainServiceImpl implements MainService {
           id = merchant.getMerchantNikeName()
                   + RandomStringUtils.generate(6,RandomStringUtils.DIGITS);
           idExist = userVoucherMapper.queryById(id);
+          log.info("当前ID -> [{}] 是否已存在 -> [{}]",id,idExist != null);
         }while (idExist != null);
         UserVoucher userVoucher = new UserVoucher();
-        userVoucher.setId(ChineseFirstLetter.getFirstLetters(merchant.getMerchantName())
-                + RandomStringUtils.generate(6,RandomStringUtils.DIGITS));
+        userVoucher.setId(id);
         userVoucher.setVoucherId(claimVoucherRequest.getVoucherId());
         userVoucher.setVerify(false);
         userVoucher.setObtainedTime(new Timestamp(DateUtil.now().getTime()));
