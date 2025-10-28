@@ -9,10 +9,10 @@ import java.util.Random;
  */
 public final class RandomStringUtils {
 
-    private static final String UPPER_CASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    private static final String LOWER_CASE = "abcdefghijklmnopqrstuvwxyz";
-    private static final String DIGITS = "0123456789";
-    private static final String ALPHANUMERIC = UPPER_CASE + LOWER_CASE + DIGITS;
+    public static final String UPPER_CASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    public static final String LOWER_CASE = "abcdefghijklmnopqrstuvwxyz";
+    public static final String DIGITS = "0123456789";
+    public static final String ALPHANUMERIC = UPPER_CASE + LOWER_CASE + DIGITS;
 
     private static final SecureRandom SECURE_RANDOM = new SecureRandom();
     private static final Random RANDOM = new Random();

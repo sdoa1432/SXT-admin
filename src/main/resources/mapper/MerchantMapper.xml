@@ -4,6 +4,7 @@
     <resultMap type="com.tencent.wxcloudrun.model.Merchant" id="MerchantMap">
         <result property="id" column="id" jdbcType="VARCHAR"/>
         <result property="merchantName" column="merchant_name" jdbcType="VARCHAR"/>
+        <result property="merchantNikeName" column="merchant_nike_name" jdbcType="VARCHAR"/>
         <result property="merchantType" column="merchant_type" jdbcType="NUMERIC"/>
         <result property="merchantAddress" column="merchant_address" jdbcType="VARCHAR"/>
         <result property="merchantDes" column="merchant_des" jdbcType="VARCHAR"/>
@@ -18,7 +19,7 @@
     <!-- 通过ID查询单条数据 -->
     <select id="queryByAccountAndPassword" resultMap="MerchantMap">
         select
-        id,merchant_name,merchant_type,merchant_address,merchant_des,merchant_phone,merchant_manager,merchant_role,merchant_password,merchant_account,login_token
+        id,merchant_name,merchant_nike_name,merchant_type,merchant_address,merchant_des,merchant_phone,merchant_manager,merchant_role,merchant_password,merchant_account,login_token
         from merchant
         where merchant_account = #{merchant_account} and merchant_password = #{merchant_password}
     </select>
@@ -26,7 +27,7 @@
     <!-- 通过ID查询单条数据 -->
     <select id="queryById" resultMap="MerchantMap">
         select
-            id,merchant_name,merchant_type,merchant_address,merchant_des,merchant_phone,merchant_manager,merchant_role,merchant_password,merchant_account,login_token
+            id,merchant_name,merchant_nike_name,merchant_type,merchant_address,merchant_des,merchant_phone,merchant_manager,merchant_role,merchant_password,merchant_account,login_token
         from merchant
         where id = #{id}
     </select>
@@ -34,7 +35,7 @@
     <!--分页查询指定行数据-->
     <select id="queryAllByLimit" resultMap="MerchantMap">
         select
-        id,merchant_name,merchant_type,merchant_address,merchant_des,merchant_phone,merchant_manager,merchant_role,merchant_password,merchant_account,login_token
+        id,merchant_name,merchant_nike_name,merchant_type,merchant_address,merchant_des,merchant_phone,merchant_manager,merchant_role,merchant_password,merchant_account,login_token
         from merchant
         <where>
             <if test="id != null and id != ''">
@@ -42,6 +43,9 @@
             </if>
             <if test="merchantName != null and merchantName != ''">
                 and merchant_name = #{merchantName}
+            </if>
+            <if test="merchantNikeName != null and merchantNikeName != ''">
+                and merchant_nike_name = #{merchantNikeName}
             </if>
             <if test="merchantType != null and merchantType != ''">
                 and merchant_type = #{merchantType}
@@ -76,7 +80,7 @@
 
     <select id="queryAll" resultMap="MerchantMap">
         select
-        id,merchant_name,merchant_type,merchant_address,merchant_des,merchant_phone,merchant_manager,merchant_role,merchant_password,merchant_account,login_token
+        id,merchant_name,merchant_nike_name,merchant_type,merchant_address,merchant_des,merchant_phone,merchant_manager,merchant_role,merchant_password,merchant_account,login_token
         from merchant
         <where>
             <if test="id != null and id != ''">
@@ -84,6 +88,9 @@
             </if>
             <if test="merchantName != null and merchantName != ''">
                 and merchant_name = #{merchantName}
+            </if>
+            <if test="merchantNikeName != null and merchantNikeName != ''">
+                and merchant_nike_name = #{merchantNikeName}
             </if>
             <if test="merchantType != null and merchantType != ''">
                 and merchant_type = #{merchantType}
@@ -126,6 +133,9 @@
             <if test="merchantName != null and merchantName != ''">
                 and merchant_name = #{merchantName}
             </if>
+            <if test="merchantNikeName != null and merchantNikeName != ''">
+                and merchant_nike_name = #{merchantNikeName}
+            </if>
             <if test="merchantType != null and merchantType != ''">
                 and merchant_type = #{merchantType}
             </if>
@@ -158,29 +168,30 @@
 
     <!--新增数据-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into merchant(id,merchant_name,merchant_type,merchant_address,merchant_des,merchant_phone,merchant_manager,merchant_role,merchant_password,merchant_account,login_token)
-        values (#{id},#{merchantName},#{merchantType},#{merchantAddress},#{merchantDes},#{merchantPhone},#{merchantManager},#{merchantRole},#{merchantPassword},#{merchantAccount},#{loginToken})
+        insert into merchant(id,merchant_name,merchant_nike_name,merchant_type,merchant_address,merchant_des,merchant_phone,merchant_manager,merchant_role,merchant_password,merchant_account,login_token)
+        values (#{id},#{merchantName},#{entity.merchantNikeName},#{merchantType},#{merchantAddress},#{merchantDes},#{merchantPhone},#{merchantManager},#{merchantRole},#{merchantPassword},#{merchantAccount},#{loginToken})
     </insert>
 
     <!-- 批量新增数据 -->
     <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
-        insert into merchant(id,merchant_name,merchant_type,merchant_address,merchant_des,merchant_phone,merchant_manager,merchant_role,merchant_password,merchant_account,login_token)
+        insert into merchant(id,merchant_name,merchant_nike_name,merchant_type,merchant_address,merchant_des,merchant_phone,merchant_manager,merchant_role,merchant_password,merchant_account,login_token)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.id},#{entity.merchantName},#{entity.merchantType},#{entity.merchantAddress},#{entity.merchantDes},#{entity.merchantPhone},#{entity.merchantManager},#{entity.merchantRole},#{entity.merchantPassword},#{entity.merchantAccount},#{entity.loginToken})
+            (#{entity.id},#{entity.merchantName},#{entity.merchantNikeName},#{entity.merchantType},#{entity.merchantAddress},#{entity.merchantDes},#{entity.merchantPhone},#{entity.merchantManager},#{entity.merchantRole},#{entity.merchantPassword},#{entity.merchantAccount},#{entity.loginToken})
         </foreach>
     </insert>
 
     <!-- 批量新增或按主键更新数据 -->
     <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
-        insert into merchant(id,merchant_name,merchant_type,merchant_address,merchant_des,merchant_phone,merchant_manager,merchant_role,merchant_password,merchant_account,login_token)
+        insert into merchant(id,merchant_name,merchant_nike_name,merchant_type,merchant_address,merchant_des,merchant_phone,merchant_manager,merchant_role,merchant_password,merchant_account,login_token)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.id},#{entity.merchantName},#{entity.merchantType},#{entity.merchantAddress},#{entity.merchantDes},#{entity.merchantPhone},#{entity.merchantManager},#{entity.merchantRole},#{entity.merchantPassword},#{entity.merchantAccount},#{entity.loginToken})
+            (#{entity.id},#{entity.merchantName},#{entity.merchantNikeName},#{entity.merchantType},#{entity.merchantAddress},#{entity.merchantDes},#{entity.merchantPhone},#{entity.merchantManager},#{entity.merchantRole},#{entity.merchantPassword},#{entity.merchantAccount},#{entity.loginToken})
         </foreach>
         on duplicate key update
         id=values(id),
         merchant_name=values(merchant_name),
+        merchant_nike_name=values(merchant_nike_name),
         merchant_type=values(merchant_type),
         merchant_address=values(merchant_address),
         merchant_des=values(merchant_des),
@@ -201,6 +212,9 @@
             </if>
             <if test="merchantName != null and merchantName != ''">
                 merchant_name = #{merchantName},
+            </if>
+            <if test="merchantNikeName != null and merchantNikeName != ''">
+                merchant_nike_name = #{merchantNikeName},
             </if>
             <if test="merchantType != null and merchantType != ''">
                 merchant_type = #{merchantType},

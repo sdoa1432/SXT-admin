@@ -65,6 +65,11 @@
             <artifactId>fastjson</artifactId>
             <version>2.0.59</version>
         </dependency>
+        <dependency>
+            <groupId>com.belerweb</groupId>
+            <artifactId>pinyin4j</artifactId>
+            <version>2.5.1</version>
+        </dependency>
     </dependencies>
 
     <build>

@@ -10,6 +10,8 @@ public class Merchant implements Serializable,Cloneable{
     private String id ;
     /** 商户名称,; */
     private String merchantName ;
+    /** 商户名称缩写,; */
+    private String merchantNikeName ;
     /** 商户类型,; */
     private int merchantType ;
     /** 商户地址,; */

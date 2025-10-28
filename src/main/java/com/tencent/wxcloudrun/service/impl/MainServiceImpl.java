@@ -14,10 +14,7 @@ import com.tencent.wxcloudrun.model.MerchantVoucherManager;
 import com.tencent.wxcloudrun.model.UserVoucher;
 import com.tencent.wxcloudrun.result.*;
 import com.tencent.wxcloudrun.service.MainService;
-import com.tencent.wxcloudrun.utils.DateUtil;
-import com.tencent.wxcloudrun.utils.JwtUtil;
-import com.tencent.wxcloudrun.utils.RandomStringUtils;
-import com.tencent.wxcloudrun.utils.StringUtils;
+import com.tencent.wxcloudrun.utils.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -100,16 +97,25 @@ public class MainServiceImpl implements MainService {
   @Override
   public ApiResponse claimVoucher(ClaimVoucherRequest claimVoucherRequest) {
     MerchantVoucherManager voucherManager = voucherManagerMapper.queryById(claimVoucherRequest.getVoucherId());
+    Merchant merchant = merchantMapper.queryById(voucherManager.getBelongMerchantId());
     if (voucherManager != null){
       UserVoucher queryClaim = new UserVoucher();
       queryClaim.setVoucherId(voucherManager.getId());
       queryClaim.setUserId(claimVoucherRequest.getUserId());
       List<UserVoucher> exist = userVoucherMapper.queryAll(queryClaim);
       if (exist != null && !exist.isEmpty()){
-        return ApiResponse.error("优惠券信息错误！");
+        return ApiResponse.error("优惠券已领取！");
       }else {
+        UserVoucher idExist  = null;
+        String id = "";
+        do {
+          id = merchant.getMerchantNikeName()
+                  + RandomStringUtils.generate(6,RandomStringUtils.DIGITS);
+          idExist = userVoucherMapper.queryById(id);
+        }while (idExist != null);
         UserVoucher userVoucher = new UserVoucher();
-        userVoucher.setId(RandomStringUtils.generate32());
+        userVoucher.setId(ChineseFirstLetter.getFirstLetters(merchant.getMerchantName())
+                + RandomStringUtils.generate(6,RandomStringUtils.DIGITS));
         userVoucher.setVoucherId(claimVoucherRequest.getVoucherId());
         userVoucher.setVerify(false);
         userVoucher.setObtainedTime(new Timestamp(DateUtil.now().getTime()));
