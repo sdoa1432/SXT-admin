@@ -30,4 +30,6 @@ public class UserVoucherDetail implements Serializable,Cloneable{
     private String voucherAmt ;
     /** 消费券介绍,; */
     private String voucherDes ;
+    /** 消费券商户名,; */
+    private String merchantName ;
 }

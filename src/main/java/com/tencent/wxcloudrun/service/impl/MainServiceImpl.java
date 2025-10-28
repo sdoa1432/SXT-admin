@@ -174,6 +174,8 @@ public class MainServiceImpl implements MainService {
       detail.setVoucherAmt(voucherManager.getVoucherAmt());
       detail.setVoucherDes(voucherManager.getVoucherDes());
       detail.setVoucherName(voucherManager.getVoucherName());
+      Merchant merchant = merchantMapper.queryById(voucherManager.getBelongMerchantId());
+      detail.setMerchantName(merchant.getMerchantName());
       userVoucherDetails.add(detail);
     }
     return ApiResponse.ok(userVoucherDetails);
